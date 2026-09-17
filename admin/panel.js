@@ -1,15 +1,14 @@
 (() => {
   const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
   const iframe = $('#previewFrame'), frame = $('#frame');
-  const adminEmail = 'amirgzva@gmail.com', storageKey = 'moham-admin-drafts-v1';
+  const storageKey = 'moham-admin-drafts-v1';
   const app = firebase.apps.length ? firebase.app() : firebase.initializeApp(window.MOHAJER_FIREBASE_CONFIG);
-  const auth = app.auth(), db = app.firestore();
+  const db = app.firestore();
   let drafts = JSON.parse(localStorage.getItem(storageKey) || '{}'), selected = null, original = null, history = [], future = [];
   const clone = x => JSON.parse(JSON.stringify(x));
   const saveLocal = () => { localStorage.setItem(storageKey, JSON.stringify(drafts)); $('#state').textContent = '● پیش‌نویس ذخیره شد'; };
   const notify = t => { $('#state').textContent = '● ' + t; setTimeout(() => $('#state').textContent = '● همه تغییرات ذخیره شده', 2500); };
   const keyOf = el => el?.dataset?.key || '';
-  const css = (el,p) => getComputedStyle(el).getPropertyValue(p);
   const transformXY = el => { const t = getComputedStyle(el).transform; if (!t || t === 'none') return {x:0,y:0}; const m = new DOMMatrix(t); return {x:m.m41,y:m.m42}; };
   function setText(el, value){ const lines=String(value||'').split(/<br\s*\/?\s*>/i); el.replaceChildren(); lines.forEach((line,i)=>{if(i)el.append(document.createElement('br'));el.append(document.createTextNode(line));}); }
   function applyDraft(el,d){
@@ -58,9 +57,6 @@
   $('#undo').onclick=()=>{if(!history.length)return;future.push(clone(drafts));drafts=history.pop();saveLocal();applyAll(iframe.contentDocument);};
   $('#redo').onclick=()=>{if(!future.length)return;history.push(clone(drafts));drafts=future.pop();saveLocal();applyAll(iframe.contentDocument);};
   $('#publish').onclick=()=>$('#dialog').showModal();$('#closeDialog').onclick=()=>$('#dialog').close();
-  $('#confirm').onclick=async()=>{const b=$('#confirm');b.disabled=true;b.textContent='در حال انتشار…';try{await db.collection('siteContent').doc('published').set({moham:{content:drafts,updatedAt:firebase.firestore.FieldValue.serverTimestamp(),updatedBy:auth.currentUser.uid}}, {merge:true});notify('تغییرات MOHAM منتشر شد');$('#dialog').close();}catch(e){console.error(e);notify('انتشار ناموفق بود؛ اتصال Firebase را بررسی کنید');}b.disabled=false;b.textContent='تأیید و انتشار';};
-  $('#logout').onclick=()=>auth.signOut();
-  $('#loginForm').onsubmit=async e=>{e.preventDefault();$('#loginError').textContent='';try{await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);await auth.signInWithEmailAndPassword(adminEmail,$('#password').value);}catch(err){console.error(err);$('#loginError').textContent='رمز عبور صحیح نیست یا ورود انجام نشد.';}};
-  auth.onAuthStateChanged(user=>{const ok=!!user&&user.email===adminEmail;if(user&&user.email!==adminEmail)auth.signOut();$('#loginGate').classList.toggle('hidden',ok);$('#app').classList.toggle('locked',!ok);if(ok){saveLocal();if(iframe.contentDocument)applyAll(iframe.contentDocument);}});
+  $('#confirm').onclick=async()=>{const b=$('#confirm');b.disabled=true;b.textContent='در حال انتشار…';try{await db.collection('siteContent').doc('published').set({moham:{content:drafts,updatedAt:firebase.firestore.FieldValue.serverTimestamp()}}, {merge:true});notify('تغییرات MOHAM منتشر شد');$('#dialog').close();}catch(e){console.error(e);notify('انتشار ناموفق بود؛ دسترسی Firestore را بررسی کنید');}b.disabled=false;b.textContent='تأیید و انتشار';};
   window.addEventListener('beforeunload',saveLocal);
 })();
