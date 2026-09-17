@@ -1,7 +1,42 @@
-<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>MOHAM Content Studio</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap"><link rel="stylesheet" href="panel.css"></head><body>
-<div id="app" class="app"><header><a href="../" class="brand"><span class="mark">M</span><span><b>MOHAM</b><small>Content Studio</small></span></a><div class="center"><button id="undo">↶</button><button id="redo">↷</button><button data-device="mobile">▯</button><button data-device="tablet">▭</button><button class="active" data-device="desktop">▰</button></div><div class="actions"><span id="state">● همه تغییرات ذخیره شده</span><button id="preview">مشاهده سایت</button><button id="publish" class="primary">انتشار</button></div></header>
-<aside class="sidebar"><h3>مدیریت سایت</h3><button class="active">صفحه اصلی</button><p>عناصر قابل ویرایش</p><small>برای ویرایش، روی هر متن، تصویر یا کادر در پیش‌نمایش کلیک کنید.</small></aside>
-<main><div class="toolbar"><b>صفحه اصلی</b><span>ویرایش مستقیم با موس</span></div><div class="canvas"><div class="hint">روی عنصر کلیک کنید • برای جابه‌جایی، آن را با موس بکشید</div><div id="frame" class="frame desktop"><div class="browser"><i></i><i></i><i></i><span>MOHAM landing page</span></div><iframe id="previewFrame" src="../" title="پیش نمایش سایت"></iframe></div></div></main>
-<aside class="inspector"><div class="head"><div><small>تنظیمات عنصر</small><h2 id="title">یک عنصر انتخاب کنید</h2></div></div><div id="empty" class="empty"><b>✦</b><h3>ویرایش آسان</h3><p>متن، تصویر یا کادر را از وسط صفحه انتخاب کنید.</p></div><form id="form" class="form hidden"><input id="key" type="hidden"><label id="contentLabel">محتوا<textarea id="content" rows="6"></textarea></label><label id="imageLabel" class="hidden">آدرس تصویر<input id="image" type="url"></label><div class="row"><label>رنگ متن<input id="color" type="color"></label><label>پس‌زمینه<input id="bg" type="color"></label></div><div class="row"><label>عرض (px)<input id="width" type="number" min="20"></label><label>ارتفاع (px)<input id="height" type="number" min="20"></label></div><div class="row"><label>جابجایی افقی<input id="x" type="number"></label><label>جابجایی عمودی<input id="y" type="number"></label></div><label>گردی گوشه<input id="radius" type="number" min="0"></label><div class="align"><button type="button" data-align="left">چپ</button><button type="button" data-align="center">وسط</button><button type="button" data-align="right">راست</button></div><div class="buttons"><button type="button" id="cancel">لغو</button><button type="button" id="apply" class="primary">اعمال و ذخیره</button></div></form><div class="note">ذخیره، پیش‌نویس این سایت را نگه می‌دارد. «انتشار» فقط تغییرات همین MOHAM را روی سایت عمومی اعمال می‌کند.</div></aside></div>
-<dialog id="dialog"><h2>انتشار تغییرات</h2><p>تغییرات فعلی فقط برای سایت MOHAM منتشر می‌شود و محتوای سایت‌های دیگر تغییر نمی‌کند.</p><div><button id="closeDialog">انصراف</button><button id="confirm" class="primary">تأیید و انتشار</button></div></dialog>
-<script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script><script src="../firebase-config.js"></script><script src="panel.js"></script></body></html>
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>MOHAM Content Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap"><link rel="stylesheet" href="panel.css?v=20260917-editor">
+</head>
+<body>
+<div id="app" class="app">
+<header>
+<a href="../" class="brand"><span class="mark">M</span><span><b>MOHAM</b><small>Content Studio</small></span></a>
+<div class="center"><button id="undo" title="بازگشت">↶</button><button id="redo" title="انجام مجدد">↷</button><button data-device="mobile">▯</button><button data-device="tablet">▭</button><button class="active" data-device="desktop">▰</button></div>
+<div class="actions"><span id="state">● آماده</span><button id="preview">مشاهده سایت</button><button id="publish" class="primary">انتشار</button></div>
+</header>
+<aside class="sidebar"><h3>مدیریت سایت</h3><button class="active">صفحه اصلی</button><p>ویرایشگر کامل</p><small>روی متن، تصویر، کارت، بخش یا کادر کلیک کنید. عناصر قابل جابه‌جایی هستند و تنظیمات از پنل سمت راست اعمال می‌شود.</small><div class="account"><span>MOHAM Editor</span><span>بدون رمز</span></div></aside>
+<main>
+<div class="toolbar"><b>صفحه اصلی</b><span>ویرایش مستقیم با موس • تغییرات ابتدا به‌صورت پیش‌نویس ذخیره می‌شوند</span></div>
+<div class="canvas"><div class="hint">روی عنصر کلیک کنید • برای جابه‌جایی آن را با موس بکشید • گوشه کادر را برای تغییر اندازه بکشید</div><div id="frame" class="frame desktop"><div class="browser"><i></i><i></i><i></i><span>MOHAM landing page</span></div><iframe id="previewFrame" src="../" title="پیش نمایش سایت"></iframe></div></div>
+</main>
+<aside class="inspector">
+<div class="head"><div><small>تنظیمات عنصر</small><h2 id="title">یک عنصر انتخاب کنید</h2></div></div>
+<div id="empty" class="empty"><b>✦</b><h3>ویرایش آسان</h3><p>یک متن، تصویر، کارت یا بخش را از وسط صفحه انتخاب کنید.</p></div>
+<form id="form" class="form hidden">
+<input id="key" type="hidden"><input id="selector" type="hidden">
+<label id="contentLabel">محتوا<textarea id="content" rows="5"></textarea></label>
+<label id="imageLabel" class="hidden">آدرس تصویر<input id="image" type="url"></label>
+<label id="uploadLabel" class="hidden">انتخاب تصویر از کامپیوتر<input id="upload" type="file" accept="image/*"></label>
+<div class="row"><label>رنگ متن<input id="color" type="color"></label><label>پس‌زمینه<input id="bg" type="color"></label></div>
+<label>تصویر پس‌زمینه<input id="bgImage" type="url" placeholder="https://..."></label>
+<div class="row"><label>عرض (px)<input id="width" type="number" min="20"></label><label>ارتفاع (px)<input id="height" type="number" min="20"></label></div>
+<div class="row"><label>جابجایی افقی<input id="x" type="number"></label><label>جابجایی عمودی<input id="y" type="number"></label></div>
+<div class="row"><label>اندازه متن<input id="fontSize" type="number" min="8"></label><label>ضخامت متن<input id="fontWeight" type="number" min="100" max="900" step="100"></label></div>
+<div class="row"><label>شفافیت<input id="opacity" type="number" min="0" max="1" step="0.05"></label><label>گردی گوشه<input id="radius" type="number" min="0"></label></div>
+<label>سایه<input id="shadow" type="text" dir="ltr" placeholder="0 8px 30px rgba(0,0,0,.15)"></label>
+<div class="align"><button type="button" data-align="left">چپ</button><button type="button" data-align="center">وسط</button><button type="button" data-align="right">راست</button></div>
+<div class="buttons"><button type="button" id="cancel">لغو</button><button type="button" id="apply" class="primary">اعمال و ذخیره</button></div>
+</form>
+<div class="note">ذخیره = پیش‌نویس. انتشار = فقط محتوای MOHAM در سند مخصوص خودش منتشر می‌شود؛ سایت اصلی مهاجر استیل تغییر نمی‌کند.</div>
+</aside></div>
+<dialog id="dialog"><h2>انتشار تغییرات</h2><p>تغییرات فعلی فقط برای سایت MOHAM منتشر می‌شود.</p><div><button id="closeDialog">انصراف</button><button id="confirm" class="primary">تأیید و انتشار</button></div></dialog>
+<script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script><script src="../firebase-config.js?v=20260917-editor"></script><script src="panel.js?v=20260917-editor"></script>
+</body></html>
