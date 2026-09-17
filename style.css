@@ -7,9 +7,11 @@
 }
 
 body {
+    /* تصویر زمینه جدید ارسالی */
     background-image: url('https://res.cloudinary.com/dqhbyqftq/image/upload/v1789562628/%D8%AF%D8%B1%D8%B3%D8%AA._nxoxev.png');
     background-size: cover;
-    background-position: 85% center;
+    /* حفظ موقعیت تصویر در سمت راست برای جلوگیری از تداخل با متن */
+    background-position: 85% center; 
     background-repeat: no-repeat;
     background-attachment: fixed;
     min-height: 100vh;
@@ -26,11 +28,13 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 40px 20px 40px 40px;
+    /* تنظیم پدینگ برای نزدیک‌تر شدن متن به لبه چپ */
+    padding: 40px 20px 40px 40px; 
     position: relative;
     z-index: 2;
 }
 
+/* ================= هدر ================= */
 .header {
     display: flex;
     justify-content: space-between;
@@ -99,6 +103,7 @@ body {
     background-color: #0B3B60;
 }
 
+/* ================= بخش هیرو (Hero) ================= */
 .hero {
     flex: 1;
     display: flex;
@@ -108,7 +113,8 @@ body {
 }
 
 .hero-content {
-    max-width: 42%;
+    /* محدود کردن عرض متن‌ها برای جلوگیری از تداخل با محصولات سمت راست */
+    max-width: 42%; 
     min-width: 380px;
     z-index: 5;
 }
@@ -158,6 +164,7 @@ body {
     color: white;
 }
 
+/* ================= بخش ویژگی‌های پایین ================= */
 .bottom-section {
     display: flex;
     justify-content: space-between;
@@ -194,6 +201,7 @@ body {
     color: #666;
 }
 
+/* نقطه‌های اسلایدر */
 .slider-dots {
     display: flex;
     gap: 10px;
@@ -215,23 +223,37 @@ body {
     border-radius: 10px;
 }
 
+/* ================= ریسپانسیو (موبایل و تبلت) ================= */
 @media (max-width: 1200px) {
-    .hero-content { max-width: 50%; }
-    .hero-content h1 { font-size: 50px; }
+    .hero-content {
+        max-width: 50%;
+    }
+    .hero-content h1 {
+        font-size: 50px;
+    }
 }
 
 @media (max-width: 1024px) {
-    .container { padding: 20px; }
+    .container {
+        padding: 20px;
+    }
     .hero-content {
         max-width: 100%;
-        background-color: rgba(255, 255, 255, 0.75);
+        background-color: rgba(255, 255, 255, 0.75); /* پس‌زمینه شفاف برای خوانایی بهتر متن روی عکس */
         padding: 20px;
         border-radius: 15px;
         backdrop-filter: blur(5px);
     }
-    .hero-content h1 { font-size: 40px; }
-    .nav-menu { display: none; }
-    .features-list { flex-direction: column; gap: 15px; }
+    .hero-content h1 {
+        font-size: 40px;
+    }
+    .nav-menu {
+        display: none;
+    }
+    .features-list {
+        flex-direction: column;
+        gap: 15px;
+    }
     .bottom-section {
         flex-direction: column;
         align-items: flex-start;
